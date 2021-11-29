@@ -11,7 +11,7 @@ import com.sun.net.httpserver.Headers;
 @SuppressWarnings("restriction")
 //getting all properties from HttpHandler and overiding its handle()
 //Interface: method signature, constants
-class HtmlHandler implements HttpHandler {
+class FileSubmissionHandler implements HttpHandler {
 
     @Override
     public void handle(HttpExchange t) throws IOException {

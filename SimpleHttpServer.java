@@ -19,13 +19,18 @@ public class SimpleHttpServer {
      * @param context the context
      * @param handler the handler
      */
-    public SimpleHttpServer(int port) {
+    public SimpleHttpServer(int port) throws Exception {
         try {
             //Create HttpServer which is listening on the given port 
             httpServer = HttpServer.create(new InetSocketAddress(port), 0);
             //Create a new context for the given context and handler
-            httpServer.createContext("/app", new HtmlHandler());
-            httpServer.createContext("/submit_file", new FileSubmissionHandler());
+            RoutingHandler h = new RoutingHandler();
+            httpServer.createContext("/", h);
+            
+            h.register("/app", new HtmlHandler());
+            h.register("/test", new HttpRequestHandler());
+            h.register("/submit_file", new FileSubmissionHandler());
+            h.register("/first/:first/last/:last", new MatchParamsHandler());
             //Create a default executor
             httpServer.setExecutor(null);
         } catch (IOException e) {
