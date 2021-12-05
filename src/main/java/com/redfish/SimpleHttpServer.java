@@ -1,12 +1,13 @@
+package com.redfish;
+
 import java.io.IOException;
 import java.net.InetSocketAddress;
  
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
+
+import com.redfish.handlers.*;
  
-/**
- * @author ashraf
- */
 @SuppressWarnings("restriction")
 public class SimpleHttpServer {
  

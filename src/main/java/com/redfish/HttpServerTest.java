@@ -1,7 +1,5 @@
-/**
- * @author ashraf
- * 
- */
+package com.redfish;
+
 public class HttpServerTest {
  
     private static final int PORT = 8000;

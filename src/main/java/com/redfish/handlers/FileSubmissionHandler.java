@@ -1,3 +1,5 @@
+package com.redfish.handlers;
+
 import java.io.IOException;
 import java.io.FileInputStream;
 import java.io.File;
@@ -11,7 +13,7 @@ import com.sun.net.httpserver.Headers;
 @SuppressWarnings("restriction")
 //getting all properties from HttpHandler and overiding its handle()
 //Interface: method signature, constants
-class FileSubmissionHandler implements HttpHandler {
+public class FileSubmissionHandler implements HttpHandler {
 
     @Override
     public void handle(HttpExchange t) throws IOException {

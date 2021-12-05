@@ -1,0 +1,32 @@
+<!-- pom.sml file is used to manage compilation through maven -->
+<project>
+	<modelVersion>4.0.0</modelVersion> <!-- specifies schema for pom.xml file -->
+	<groupId>com.redfish</groupId> <!-- package name -->
+
+	 <!-- Basic project info -->
+	<name>P2P File Sharing Application</name>
+	<artifactId>p2p-file-sharing</artifactId>
+	<version>1.0.0</version>
+
+	<!-- Compilation rules -->
+	<build>
+		<plugins>
+			<plugin>
+				<!-- Using the maven jar plugin to generate a jar file -->
+				<!-- Importing the plugin -->
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>3.1.0</version>
+				<!-- Specifying our config -->
+				<configuration>
+					<archive>
+						<manifest>
+							<mainClass>com.redfish.HttpServerTest</mainClass> <!-- Says which class holds the main method -->
+						</manifest>
+					</archive>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>

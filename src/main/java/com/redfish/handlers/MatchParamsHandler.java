@@ -1,3 +1,5 @@
+package com.redfish.handlers;
+
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.URI;
@@ -5,6 +7,8 @@ import java.util.Map;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
+
+import com.redfish.RoutingHandler;
 
 @SuppressWarnings({"restriction", "unchecked"})
 public class MatchParamsHandler implements HttpHandler {

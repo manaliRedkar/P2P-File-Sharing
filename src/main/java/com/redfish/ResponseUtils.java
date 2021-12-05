@@ -1,3 +1,5 @@
+package com.redfish;
+
 import java.io.IOException;
 import java.io.OutputStream;
 import com.sun.net.httpserver.HttpExchange;
