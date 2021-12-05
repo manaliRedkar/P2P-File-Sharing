@@ -27,10 +27,10 @@ public class SimpleHttpServer {
             RoutingHandler h = new RoutingHandler();
             httpServer.createContext("/", h);
             
-            h.register("/app", new HtmlHandler());
-            h.register("/test", new HttpRequestHandler());
-            h.register("/submit_file", new FileSubmissionHandler());
-            h.register("/first/:first/last/:last", new MatchParamsHandler());
+            h.register("/app", HttpMethod.GET, new HtmlHandler());
+            h.register("/test", HttpMethod.GET, new HttpRequestHandler());
+            h.register("/submit_file", HttpMethod.POST, new FileSubmissionHandler());
+            h.register("/first/:first/last/:last", HttpMethod.GET, new MatchParamsHandler());
             //Create a default executor
             httpServer.setExecutor(null);
         } catch (IOException e) {

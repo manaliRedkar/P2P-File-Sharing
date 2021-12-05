@@ -29,7 +29,7 @@ public class RoutingHandler implements HttpHandler {
 			n = n.match(tokenizer.nextToken(), routeParams); // Go to the correct child node.
 
 		// Get node handler if node exists.
-		HttpHandler handler = n != null ? n.getHandler() : null;
+		HttpHandler handler = n != null ? n.getHandler(HttpMethod.valueOf(exchange.getRequestMethod())) : null;
 		
 		if (handler == null) // Return error code if no handler (either route wasn't matched or matched to a nontemrinal path w/o a handler).
 			ResponseUtils.reject(exchange, 404, "No matching route");
@@ -47,23 +47,23 @@ public class RoutingHandler implements HttpHandler {
 	 * @param handler Handler for the corresponding path.
 	 * @throws Exception If invalid registration (this method should be called at startup).
 	 */
-	public void register(String path, HttpHandler handler) throws Exception {
+	public void register(String path, HttpMethod method, HttpHandler handler) throws Exception {
 		Node n = root; // Tracks current ndoe
 		HashSet<String> seenParams = new HashSet<String>(); // Tracks list of seen route parameter names.
 		
 		StringTokenizer tokenizer = new StringTokenizer(path, PATH_DELIMITER); // Split URI into segments using slashes.
 		while (tokenizer.hasMoreElements()) // Iterate over tokenizer.
 			n = n.route(tokenizer.nextToken(), seenParams); // Create the appropriate child route.
-		if (n.getHandler() != null) // If the terminal node already has a handler registered then raise an exception.
+		if (n.getHandler(method) != null) // If the terminal node already has a handler registered then raise an exception.
 			throw new Exception("Conflicting registration");
-		n.setHandler(handler); // Otherwise set the handler for the terminal node.
+		n.setHandler(method, handler); // Otherwise set the handler for the terminal node.
 	}
 
 	private static class Node {
 		private static final String PARAM_SEGMENT = ":"; // Constant for segment (i.e. /app/:name indicates a "name" param)
 		
 		private String paramName; // Name of route parameter
-		private HttpHandler handler; // Handler affiliated with this endpoint (if one exists).
+		private HttpHandler[] handlers; // Handlers affiliated with this endpoint (if one exists). One per method.
 		private HashMap<String, Node> children; // Nodes corresponding to any segments after this one.
 
 		/**
@@ -113,7 +113,11 @@ public class RoutingHandler implements HttpHandler {
 		}
 
 		// Getter/setter methods for the node handler.
-		HttpHandler getHandler() { return this.handler; }
-		void setHandler(HttpHandler handler) { this.handler = handler; }
+		HttpHandler getHandler(HttpMethod method) { return (this.handlers == null) ? null : this.handlers[method.ordinal()]; }
+		void setHandler(HttpMethod method, HttpHandler handler) {
+			if (this.handlers == null) // Lazy initialization
+				this.handlers = new HttpHandler[HttpMethod.values().length];
+			this.handlers[method.ordinal()] = handler;
+		}
 	}
 }
