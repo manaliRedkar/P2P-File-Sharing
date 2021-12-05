@@ -7,7 +7,7 @@ public class HttpServerTest {
     public static void main(String[] args) throws Exception {
  
         // Create a new SimpleHttpServer
-        SimpleHttpServer simpleHttpServer = new SimpleHttpServer(PORT);
+        SimpleHttpServer simpleHttpServer = new SimpleHttpServer(PORT, new String[]{"com.redfish.handlers"});
  
         // Start the server
         simpleHttpServer.start();

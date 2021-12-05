@@ -7,7 +7,7 @@ import com.sun.net.httpserver.HttpExchange;
 /**
  * Utils class for Http responses
  */
-class ResponseUtils {
+public class ResponseUtils {
 	/**
 	 * Helper function for returning an error message. This is equivalent to raising an exception,
 	 * but does not actually break execution.
@@ -18,7 +18,7 @@ class ResponseUtils {
 	 * @throws IOException If error occurs while writing to output stream.
 	 * 
 	 */
-	static void reject(HttpExchange exchange, int code, String message) throws IOException {
+	public static void reject(HttpExchange exchange, int code, String message) throws IOException {
 		byte [] bytes = message.getBytes();
 		// Set response headers
 		exchange.sendResponseHeaders(code, bytes.length);

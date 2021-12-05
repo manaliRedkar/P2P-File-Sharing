@@ -1,0 +1,4 @@
+com.redfish.handlers.FileSubmissionHandler
+com.redfish.handlers.HtmlHandler
+com.redfish.handlers.HttpRequestHandler
+com.redfish.handlers.MatchParamsHandler

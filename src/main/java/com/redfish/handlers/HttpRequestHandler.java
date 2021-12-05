@@ -7,7 +7,11 @@ import java.net.URI;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
+import com.redfish.HttpMethod;
+import com.redfish.router.annotations.Route;
+
 @SuppressWarnings("restriction")
+@Route(method=HttpMethod.GET, path="/test")
 public class HttpRequestHandler implements HttpHandler {
      
     private static final String F_NAME = "fname";
